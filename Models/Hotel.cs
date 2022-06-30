@@ -78,11 +78,12 @@
                 Room suitableRoom = vacantRoom.First(v => v.Capacity >= occupants);
                 Client myClient = GetClient(clientID);
                 Reservation newReservation = new Reservation(IdCounter++, myClient, suitableRoom);
+                return newReservation;
             } catch
             {
                 throw new Exception("Invalid Booking");
             }
-            throw new Exception("Invalid Booking");
+            
         }
     }
 }
