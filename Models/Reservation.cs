@@ -6,7 +6,7 @@
         public Client Client { get; set; }
         public Room Room { get; set; }
         public bool IsCurrent { get; set; }
-        public DateTime DateTime = new DateTime();
+        public DateTime DateTime { get; set; } = new DateTime();
 
         public Reservation (int id, Client client, Room room)
         {
