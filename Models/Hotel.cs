@@ -69,6 +69,9 @@
                 Room suitableRoom = vacantRoom.First(v => v.Capacity >= occupants);
                 Client myClient = GetClient(clientID);
                 Reservation newReservation = new Reservation(IdCounter++, myClient, suitableRoom, new DateTime(2022, 07, 21), occupants);
+                suitableRoom.Reservations.Add(newReservation);
+                myClient.Reservations.Add(newReservation);
+                Reservations.Add(newReservation);
                 return newReservation;
             } catch
             {
