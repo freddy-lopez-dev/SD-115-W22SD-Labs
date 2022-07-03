@@ -4,8 +4,8 @@
 
 @foreach(Room room in Model) {
 	if(room.Occupied.Equals(true)) {
-		<h4>@room.RoomNum Status: OCCUPIED @room.Reservations.Sum(r => r.Occupants)</h4>
+		<h4>@room.RoomNum Status: OCCUPIED Occupants: @room.Reservations.Sum(r => r.Occupants)</h4>
 	} else {
-		<h4>@room.RoomNum Status: UNOCCUPIED @room.Capacity</h4>
+		<h4>@room.RoomNum Status: UNOCCUPIED Capacity: @room.Capacity</h4>
 	}
 }

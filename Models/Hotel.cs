@@ -16,6 +16,7 @@
             Room roomOne = new Room(IdCounter++, "101", false, 4);
             Room roomTwo= new Room(IdCounter++, "102", false, 2);
             Room roomThree = new Room(IdCounter++, "103", false, 6);
+            Room roomFour = new Room(IdCounter++, "104", false, 2);
 
             Clients.Add(clientOne);
             Clients.Add(clientTwo);
@@ -23,7 +24,17 @@
             Rooms.Add(roomOne);
             Rooms.Add(roomTwo);
             Rooms.Add(roomThree);
+            Rooms.Add(roomFour);
 
+            Reservation newReservationOne = new Reservation(IdCounter++, clientOne, roomOne, new DateTime(), 2);
+            Reservations.Add(newReservationOne);
+            clientOne.Reservations.Add(newReservationOne);
+            roomOne.Reservations.Add(newReservationOne);
+            Checkin(clientOne.Name);
+
+            AutomaticReservation(1, 2);
+            Client myClient = GetClient(1);
+            Checkin(myClient.Name);
         }
 
         public static Client GetClient(int clientId)
@@ -82,18 +93,21 @@
         public static void Checkin(string clientName)
         {
             Reservation updateReservation = Reservations.First(r => r.Client.Name.Equals(clientName));
+            updateReservation.Room.Occupied = true; 
             updateReservation.IsCurrent = true;
         }
 
         public static void Checkout(int roomNum)
         {
             Reservation updateReservation = Reservations.First(r => r.Room.RoomNum.Equals(roomNum));
+            updateReservation.Room.Occupied = false;
             updateReservation.IsCurrent = false;
         }
 
         public static void Checkout(string clientName)
         {
             Reservation updateReservation = Reservations.First(r => r.Client.Name.Equals(clientName));
+            updateReservation.Room.Occupied = false;
             updateReservation.IsCurrent = false;
         }
 

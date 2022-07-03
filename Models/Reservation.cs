@@ -16,6 +16,7 @@
             Id = id;
             Client = client;
             Room = room;
+            IsCurrent = true;
             StartDate = startDate;
             Occupants = occupants;
         }
