@@ -24,15 +24,6 @@
             Rooms.Add(roomTwo);
             Rooms.Add(roomThree);
 
-            Reservation reservationOne = new Reservation(IdCounter++, clientOne, roomOne);
-            Reservations.Add(reservationOne);
-            clientOne.Reservations.Add(reservationOne);
-            roomOne.Reservations.Add(reservationOne);
-
-            Reservation reservationTwo = new Reservation(IdCounter++, clientTwo, roomTwo);
-            Reservations.Add(reservationTwo);
-            clientTwo.Reservations.Add(reservationTwo);
-            roomTwo.Reservations.Add(reservationTwo);
         }
 
         public static Client GetClient(int clientId)
@@ -77,13 +68,54 @@
                 List<Room> vacantRoom = GetVacantRooms();
                 Room suitableRoom = vacantRoom.First(v => v.Capacity >= occupants);
                 Client myClient = GetClient(clientID);
-                Reservation newReservation = new Reservation(IdCounter++, myClient, suitableRoom);
+                Reservation newReservation = new Reservation(IdCounter++, myClient, suitableRoom, new DateTime(2022, 07, 21), occupants);
                 return newReservation;
             } catch
             {
                 throw new Exception("Invalid Booking");
             }
-            
+        }
+
+        public static void Checkin(string clientName)
+        {
+            Reservation updateReservation = Reservations.First(r => r.Client.Name.Equals(clientName));
+            updateReservation.IsCurrent = true;
+        }
+
+        public static void Checkout(int roomNum)
+        {
+            Reservation updateReservation = Reservations.First(r => r.Room.RoomNum.Equals(roomNum));
+            updateReservation.IsCurrent = false;
+        }
+
+        public static void Checkout(string clientName)
+        {
+            Reservation updateReservation = Reservations.First(r => r.Client.Name.Equals(clientName));
+            updateReservation.IsCurrent = false;
+        }
+
+        public static int TotalCapacityRemaining()
+        {
+            int totalCapacity = Rooms.Sum(r => r.Capacity);
+            int occupants = Reservations.Sum(r => r.Occupants);
+            int capacityRemaining = totalCapacity - occupants;
+            return capacityRemaining;
+        }
+
+        public static int AverageOccupancyPercentage()
+        {
+            List<Reservation> currentReservation = Reservations.Where(r => r.IsCurrent.Equals(true)).ToList();
+            int totalOccupants = currentReservation.Sum(r => r.Occupants);
+            int totalCapacity = currentReservation.Sum(r => r.Room.Capacity);
+            int average = (totalOccupants / totalCapacity) * 100;
+            return average;
+        }
+
+        public static List<Reservation> FutureBooking()
+        {
+            DateTime todaysDate = new DateTime();
+            List<Reservation> futureBooking = Reservations.Where(r => r.StartDate > todaysDate).ToList();
+            return futureBooking;
         }
     }
 }
