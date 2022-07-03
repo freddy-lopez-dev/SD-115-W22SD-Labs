@@ -1,0 +1,11 @@
+﻿@model HashSet<Room>
+
+<h3>All Rooms</h3>
+
+@foreach(Room room in Model) {
+	if(room.Occupied.Equals(true)) {
+		<h4>@room.RoomNum Status: OCCUPIED @room.Reservations.Sum(r => r.Occupants)</h4>
+	} else {
+		<h4>@room.RoomNum Status: UNOCCUPIED @room.Capacity</h4>
+	}
+}
