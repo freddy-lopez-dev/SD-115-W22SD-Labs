@@ -1,0 +1,11 @@
+﻿@model HashSet<Reservation>
+
+<h3>Reservations</h3>
+<ul>
+@foreach(Reservation reservation in Model) {
+	<li>Room Number: @reservation.Room.RoomNum Client: @reservation.Client.Name Occupants: @reservation.Occupants</li>
+}
+</ul>
+<button>
+	<a asp-action="Index">Home</a>
+</button>

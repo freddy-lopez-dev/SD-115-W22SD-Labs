@@ -1,0 +1,14 @@
+﻿@model HashSet<Room>
+
+<h3>All Rooms</h3>
+
+@foreach(Room room in Model) {
+	if(room.Occupied.Equals(true)) {
+		<h4>Room: @room.RoomNum Status: OCCUPIED Occupants: @room.Reservations.Sum(r => r.Occupants)</h4>
+	} else {
+		<h4>Room: @room.RoomNum Status: UNOCCUPIED Capacity: @room.Capacity</h4>
+	}
+}
+<button>
+	<a asp-action="Index">Home</a>
+</button>

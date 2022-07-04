@@ -1,0 +1,17 @@
+﻿@model HashSet<Room>
+
+@if(@ViewBag.totalCapacity <= 0) {
+	<h2 style="color: darkred">No more than 25 employees should be in this building, according to local fire codes.</h2>
+} else
+{
+	<h2>Total number of Capacity Remaining: @ViewBag.totalCapacity</h2>
+}
+
+
+
+@foreach(Room room in Model) {
+	<h4>Room Number: @room.RoomNum Room Capacity: @room.Capacity Current Occupants: @room.Reservations.Sum(r => r.Occupants)</h4>
+}
+<button>
+	<a asp-action="Index">Home</a>
+</button>

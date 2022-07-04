@@ -1,0 +1,11 @@
+﻿@model List<Client>
+
+<h3>Our Top Three Clients</h3>
+<ol>
+@foreach(Client client in Model) {
+	<li>Name: @client.Name Reservations: @client.Reservations.Count()</li>
+}
+</ol>
+<button>
+	<a asp-action="Index">Home</a>
+</button>
