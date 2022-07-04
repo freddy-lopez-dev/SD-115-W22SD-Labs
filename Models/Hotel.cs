@@ -5,13 +5,14 @@
         public static ICollection<Client> Clients { get; set; } = new HashSet<Client>();
         public static ICollection<Room> Rooms { get; set; } = new HashSet<Room>();
         public static ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
-        public static int IdCounter { get; set; } = 0;
+        public static int IdCounter { get; set; } = 1;
 
         static Hotel()
         {
-            Client clientOne = new Client("Jim Halpert", 21348237182);
-            Client clientTwo = new Client("Dwight Schrute", 2124829328);
-            Client clientThree = new Client("Michael Scott", 2182941723);
+            Client clientOne = new Client(IdCounter++, "Jim Halpert", 21348237182);
+            Client clientTwo = new Client(IdCounter++, "Dwight Schrute", 2124829328);
+            Client clientThree = new Client(IdCounter++, "Michael Scott", 2182941723);
+            Client clientFour = new Client(IdCounter++, "Andy Bernard", 2182942113);
 
             Room roomOne = new Room(IdCounter++, "101", false, 4);
             Room roomTwo= new Room(IdCounter++, "102", false, 2);
@@ -21,20 +22,26 @@
             Clients.Add(clientOne);
             Clients.Add(clientTwo);
             Clients.Add(clientThree);
+            Clients.Add(clientFour);
             Rooms.Add(roomOne);
             Rooms.Add(roomTwo);
             Rooms.Add(roomThree);
             Rooms.Add(roomFour);
 
-            Reservation newReservationOne = new Reservation(IdCounter++, clientOne, roomOne, new DateTime(), 2);
+            Reservation newReservationOne = new Reservation(IdCounter++, clientOne, roomOne, new DateTime(), 4);
             Reservations.Add(newReservationOne);
             clientOne.Reservations.Add(newReservationOne);
             roomOne.Reservations.Add(newReservationOne);
             Checkin(clientOne.Name);
 
-            AutomaticReservation(1, 2);
-            Client myClient = GetClient(1);
-            Checkin(myClient.Name);
+            AutomaticReservation(2, 2);
+            Checkin(GetClient(2).Name);
+            AutomaticReservation(3, 6);
+            Checkin(GetClient(3).Name);
+            // To display the Fire Hazard protocol make 2 occupants
+            AutomaticReservation(4, 1);
+            Checkin(GetClient(4).Name);
+
         }
 
         public static Client GetClient(int clientId)
