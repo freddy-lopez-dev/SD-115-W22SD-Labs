@@ -12,3 +12,6 @@
 @foreach(Room room in Model) {
 	<h4>Room Number: @room.RoomNum Room Capacity: @room.Capacity Current Occupants: @room.Reservations.Sum(r => r.Occupants)</h4>
 }
+<button>
+	<a asp-action="Index">Home</a>
+</button>
