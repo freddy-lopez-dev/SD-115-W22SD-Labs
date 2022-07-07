@@ -87,7 +87,7 @@
 
         public static void Checkout(int roomNum)
         {
-            Reservation updateReservation = Reservations.First(r => r.Room.RoomNum.Equals(roomNum));
+            Reservation updateReservation = Reservations.First(r => r.Room.RoomNum.Equals(roomNum.ToString()));
             updateReservation.IsCurrent = false;
         }
 
